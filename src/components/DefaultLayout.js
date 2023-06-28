@@ -39,7 +39,7 @@ export default function DefaultLayout() {
             .then(({ data }) => {
                 setUser(data);
             });
-    }, []);
+    });
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
