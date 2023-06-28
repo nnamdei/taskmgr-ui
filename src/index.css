@@ -3,11 +3,22 @@
 * {
     box-sizing: border-box;
 }
-html, body, #root, #defaultLayout, #guestLayout {
+
+html,
+body,
+#root,
+#defaultLayout,
+#guestLayout {
     min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
 }
 
@@ -36,6 +47,23 @@ input:focus {
     border-color: #5b08a7;
 }
 
+.dropdown-select {
+    outline: 0;
+    background: #ffffff;
+    width: 100%;
+    border: 2px solid #e6e6e6;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  
+  .dropdown-select:focus {
+    border-color: #5b08a7;
+  }
+  
+
 .btn,
 .btn-add,
 .btn-edit,
@@ -59,14 +87,16 @@ input:focus {
 
 .btn-add,
 .btn-edit,
-.btn-delete{
+.btn-delete {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
 }
+
 .btn-add {
     background-color: #00a762;
 }
+
 .btn-delete {
     background-color: #b72424;
 }
@@ -78,6 +108,7 @@ input:focus {
     transition: all 0.3s;
     border-radius: 6px;
 }
+
 .btn-logout:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -98,13 +129,13 @@ table {
     border-collapse: collapse;
 }
 
-table > thead > tr > th {
+table>thead>tr>th {
     text-align: left;
     padding: 0.5rem 0.5rem;
     background-color: #efefef;
 }
 
-table > tbody > tr > td {
+table>tbody>tr>td {
     padding: 0.5rem 0.5rem;
     border-bottom: 1px solid #efefef;
     white-space: nowrap;
@@ -171,7 +202,7 @@ table > tbody > tr > td {
 }
 
 .login-signup-form .form .message a {
-    color: #2308a7;
+    color: #5b08a7;
     text-decoration: none;
 }
 
@@ -180,15 +211,18 @@ table > tbody > tr > td {
 
 #defaultLayout {
     display: flex;
+    flex-direction: column;
+    /* height: 100vh; */
 }
 
 #defaultLayout aside {
     width: 240px;
     background-color: #5b08a7;
-    padding: 1rem
+    padding: 1rem;
+    /* position: absolute; */
 }
 
-#defaultLayout aside > a {
+#defaultLayout aside>a {
     display: block;
     padding: 0.75rem 1rem;
     border-radius: 6px;
@@ -197,12 +231,13 @@ table > tbody > tr > td {
     transition: all 0.2s;
 }
 
-#defaultLayout aside > a:hover {
+#defaultLayout aside>a:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
 #defaultLayout .content {
     flex: 1;
+    overflow-y: auto;
 }
 
 #defaultLayout header {
@@ -231,11 +266,144 @@ table > tbody > tr > td {
     animation-name: fadeInDown;
 }
 
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #f1f1f1;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+    width: 250px;
+}
+
+.menu.open {
+    transform: translateX(0);
+}
+
+.menu a {
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.menu-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #333;
+    margin-bottom: 4px;
+}
+
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-nav {
+    background-color: #753ffd;
+    width: 100%;
+    height: 40px;
+    display: none;
+}
+
+.mobile-nav-btn {
+    color: #fff;
+    background: transparent;
+    outline: none;
+    border: none;
+    margin: 0 10px;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+    header {
+        padding: 0 10px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .content {
+        padding-top: 60px;
+        /* Account for the header height */
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .mobile-nav {
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        display: block;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+}
+
 @keyframes fadeInDown {
     0% {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);

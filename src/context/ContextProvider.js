@@ -7,6 +7,7 @@ const StateContext = createContext({
     setUser: () => { },
     setTask: () => { },
     setToken: () => { },
+    setMenuOpen: ()=>{},
     setNotification: () => { }
 })
 
@@ -14,6 +15,7 @@ export const ContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [task, setTask] = useState({});
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
+    const [menuOpen, setMenuOpen] = useState({});
     const [notification, _setNotification] = useState('');
 
     const setToken = (token) => {
@@ -41,6 +43,8 @@ export const ContextProvider = ({ children }) => {
             setTask,
             token,
             setToken,
+            menuOpen,
+            setMenuOpen,
             notification,
             setNotification
         }}>
